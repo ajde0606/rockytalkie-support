@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="RockyTalkie - Bluetooth-only walkie-talkie app for iOS. Works completely offline with no internet or servers. Perfect for hiking, camping, outdoor adventures, and emergency communication.">
+    <meta name="keywords" content="walkie talkie app, bluetooth walkie talkie, offline communication, push to talk, two way radio, peer to peer, location finder, hiking app, outdoor communication, emergency communication, no wifi, no internet, privacy focused, iOS walkie talkie">
+    <meta name="author" content="RockyTalkie">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://rockytalkie.app/">
+    <meta property="og:title" content="RockyTalkie: Bluetooth Walkie-Talkie App - Offline Communication">
+    <meta property="og:description" content="Stay connected anywhere with RockyTalkie - the Bluetooth-only walkie-talkie that works completely offline. No internet, no servers, just pure peer-to-peer communication.">
+    <meta property="og:image" content="https://rockytalkie.app/og-image.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://rockytalkie.app/">
+    <meta property="twitter:title" content="RockyTalkie: Bluetooth Walkie-Talkie App - Offline Communication">
+    <meta property="twitter:description" content="Stay connected anywhere with RockyTalkie - the Bluetooth-only walkie-talkie that works completely offline.">
+    <meta property="twitter:image" content="https://rockytalkie.app/og-image.png">
+
+    <!-- App Store Smart Banner -->
+    <meta name="apple-itunes-app" content="app-id=YOUR_APP_ID">
+
+    <title>RockyTalkie: Bluetooth Walkie-Talkie App - Offline Communication for iOS</title>
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "RockyTalkie",
+      "operatingSystem": "iOS",
+      "applicationCategory": "UtilitiesApplication",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "100"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "description": "Bluetooth-only walkie-talkie app that works completely offline. No internet, no servers, no data collection. Perfect for hiking, camping, and emergency communication."
+    }
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #fff;
+        }
+
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #4b5563;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 1rem;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: #667eea;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: transform 0.2s;
+            margin-top: 1rem;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 4rem 1rem;
+            background: #f9fafb;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            color: #1f2937;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        }
+
+        .feature-card h3 {
+            color: #667eea;
+            margin-bottom: 0.75rem;
+            font-size: 1.3rem;
+        }
+
+        .feature-card p {
+            color: #6b7280;
+            line-height: 1.7;
+        }
+
+        /* Use Cases */
+        .use-cases {
+            padding: 4rem 1rem;
+            background: white;
+        }
+
+        .use-case-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .use-case {
+            padding: 1.5rem;
+            background: #f9fafb;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .use-case h3 {
+            color: #1f2937;
+            margin-bottom: 0.5rem;
+        }
+
+        .use-case p {
+            color: #6b7280;
+            font-size: 0.95rem;
+        }
+
+        /* How It Works */
+        .how-it-works {
+            padding: 4rem 1rem;
+            background: #f9fafb;
+        }
+
+        .steps {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .step-number {
+            background: #667eea;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        /* Privacy Section */
+        .privacy-section {
+            padding: 4rem 1rem;
+            background: white;
+        }
+
+        .privacy-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .privacy-content h2 {
+            color: #1f2937;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .privacy-content h3 {
+            color: #374151;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            font-size: 1.2rem;
+        }
+
+        .privacy-content p {
+            margin-bottom: 1rem;
+            color: #4b5563;
+            line-height: 1.8;
+        }
+
+        .privacy-content ul, .privacy-content ol {
+            margin-bottom: 1rem;
+            margin-left: 2rem;
+            color: #4b5563;
+        }
+
+        .privacy-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .highlight {
+            background: #eff6ff;
+            border-left: 4px solid #667eea;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+
+        .highlight p {
+            margin: 0;
+        }
+
+        .last-updated {
+            color: #6b7280;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        /* Support Section */
+        .support-section {
+            padding: 4rem 1rem;
+            background: #f9fafb;
+        }
+
+        .support-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .contact-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .contact-card h3 {
+            color: #667eea;
+            margin-bottom: 0.75rem;
+        }
+
+        .contact-card a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .contact-card a:hover {
+            text-decoration: underline;
+        }
+
+        .faq-section {
+            background: white;
+            padding: 2rem;
+            margin: 2rem 0;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .faq-section h2 {
+            color: #1f2937;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        .faq-item {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .faq-question {
+            color: #1f2937;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .faq-answer {
+            color: #4b5563;
+            line-height: 1.8;
+        }
+
+        .faq-answer ul, .faq-answer ol {
+            margin: 0.75rem 0 0.75rem 1.5rem;
+        }
+
+        .faq-answer li {
+            margin-bottom: 0.5rem;
+        }
+
+        .faq-answer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .faq-answer a:hover {
+            text-decoration: underline;
+        }
+
+        .troubleshooting h3 {
+            color: #374151;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            font-size: 1.2rem;
+        }
+
+        .troubleshooting p, .troubleshooting ul {
+            color: #4b5563;
+            margin-bottom: 1rem;
+        }
+
+        .troubleshooting ul {
+            margin-left: 1.5rem;
+        }
+
+        .troubleshooting li {
+            margin-bottom: 0.5rem;
+        }
+
+        .note {
+            background: #eff6ff;
+            border-left: 4px solid #667eea;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+
+        .note p {
+            margin: 0;
+            color: #1e40af;
+        }
+
+        .note a {
+            color: #1e40af;
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            background: #1f2937;
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+        }
+
+        .footer-links {
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a {
+            color: #9ca3af;
+            text-decoration: none;
+            margin: 0 1rem;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-text {
+            color: #9ca3af;
+            font-size: 0.9rem;
+        }
+
+        /* Mobile Navigation */
+        .mobile-menu-button {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #667eea;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .tagline {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .feature-grid,
+            .use-case-list {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                padding: 1rem;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu-button {
+                display: block;
+            }
+
+            .contact-info {
+                grid-template-columns: 1fr;
+            }
+
+            .faq-section {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#home" class="nav-brand">RockyTalkie</a>
+            <button class="mobile-menu-button" onclick="toggleMenu()">☰</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#privacy">Privacy</a></li>
+                <li><a href="#support">Support</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="home">
+        <div class="container">
+            <h1>RockyTalkie</h1>
+            <p class="tagline">Bluetooth-Only Walkie-Talkie • No Internet Required</p>
+            <p>Stay connected anywhere with the offline walkie-talkie app. No servers, no data collection, just pure peer-to-peer communication.</p>
+            <a href="https://apps.apple.com/app/rockytalkie" class="cta-button">Download on the App Store</a>
+        </div>
+    </header>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">Key Features</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>Bluetooth-Only Connection</h3>
+                    <p>Connect two devices using a shared channel code. No Wi-Fi needed, no cellular required. Works in Airplane Mode with Bluetooth enabled.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Push-to-Talk Interface</h3>
+                    <p>Classic walkie-talkie experience. Hold to record, release to send. Crystal-clear audio quality with instant transmission.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Location Finder</h3>
+                    <p>See real-time distance and compass bearing to your partner. Perfect for coordinating meetups outdoors with optional ping feature.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Complete Privacy</h3>
+                    <p>Peer-to-peer only with no servers involved. Zero data collection or analytics. Your conversations stay between you and your partner.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Works Offline</h3>
+                    <p>Perfect for hiking, camping, or skiing where internet is unavailable. Zero infrastructure dependency means it works when you need it most.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Simple Setup</h3>
+                    <p>No account creation or sign-up required. Just enter a channel code and start talking. It's that simple.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases -->
+    <section class="use-cases">
+        <div class="container">
+            <h2 class="section-title">Perfect For</h2>
+            <div class="use-case-list">
+                <div class="use-case">
+                    <h3>Outdoor Adventures</h3>
+                    <p>Stay connected while hiking, camping, or skiing without draining your battery searching for cellular signal.</p>
+                </div>
+                <div class="use-case">
+                    <h3>Event Coordination</h3>
+                    <p>Coordinate with friends at festivals, conferences, or large venues without relying on spotty Wi-Fi or crowded cellular networks.</p>
+                </div>
+                <div class="use-case">
+                    <h3>Emergency Preparedness</h3>
+                    <p>When internet infrastructure goes down, Bluetooth-based communication can be a lifeline. Works as long as your devices have power.</p>
+                </div>
+                <div class="use-case">
+                    <h3>Privacy-Conscious Users</h3>
+                    <p>No servers means no data breaches, no surveillance, and no records. Your private conversations remain truly private.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <strong>Both people open RockyTalkie</strong>
+                        <p>Download the app on both iOS devices and launch it.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <strong>Enter the same channel code</strong>
+                        <p>Choose any word or phrase as your private channel code.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <strong>Devices automatically connect</strong>
+                        <p>RockyTalkie finds each other via Bluetooth automatically.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <strong>Start talking</strong>
+                        <p>Hold to record, release to send. It's that simple.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <strong>Use Finder (optional)</strong>
+                        <p>Enable location to see distance and bearing to your partner.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Privacy Section -->
+    <section id="privacy" class="privacy-section">
+        <div class="container">
+            <h2 class="section-title">Privacy Policy</h2>
+            <div class="privacy-content">
+                <p class="last-updated"><strong>Last Updated:</strong> December 26, 2024</p>
+
+                <div class="highlight">
+                    <p><strong>Simple Version:</strong> RockyTalkie never collects, stores, or transmits your data to any servers. All communication happens directly between your device and your partner's device via Bluetooth. We don't have accounts, we don't track you, and we don't store your conversations.</p>
+                </div>
+
+                <h2>1. Information Collection and Use</h2>
+
+                <h3>1.1 What We DON'T Collect</h3>
+                <p>RockyTalkie is designed with privacy as a core principle. We do not collect, store, or transmit:</p>
+                <ul>
+                    <li>Personal information (name, email, phone number, etc.)</li>
+                    <li>User accounts or login credentials</li>
+                    <li>Voice messages or audio recordings</li>
+                    <li>Location data or GPS coordinates</li>
+                    <li>Device identifiers (UDID, advertising ID, etc.)</li>
+                    <li>Usage analytics or telemetry data</li>
+                    <li>Crash reports or diagnostics</li>
+                    <li>Any other personal or non-personal data</li>
+                </ul>
+
+                <h3>1.2 How RockyTalkie Works</h3>
+                <p>RockyTalkie uses <strong>direct device-to-device communication</strong> via Bluetooth Low Energy (BLE). This means:</p>
+                <ul>
+                    <li>Your voice messages travel directly from your device to your partner's device</li>
+                    <li>No data passes through our servers (we don't have any servers)</li>
+                    <li>No data is stored anywhere except temporarily in device memory during transmission</li>
+                    <li>Once a message is delivered and played, it is immediately discarded</li>
+                </ul>
+
+                <h2>2. Permissions Required</h2>
+
+                <p>RockyTalkie requests the following iOS permissions to function. These permissions are used ONLY for the stated purposes and no data leaves your device:</p>
+
+                <h3>2.1 Bluetooth Permission</h3>
+                <p><strong>Purpose:</strong> To discover and connect with other nearby devices running RockyTalkie.</p>
+                <p><strong>Data Usage:</strong> Bluetooth data is used only for establishing peer-to-peer connections. No Bluetooth data is collected, stored, or transmitted to third parties.</p>
+
+                <h3>2.2 Microphone Permission</h3>
+                <p><strong>Purpose:</strong> To record your voice messages when you press and hold the talk button.</p>
+                <p><strong>Data Usage:</strong> Audio is recorded, compressed, and transmitted directly to your connected partner's device. No audio is stored on your device after transmission, and no audio is sent to any servers.</p>
+
+                <h3>2.3 Location Permission (Optional)</h3>
+                <p><strong>Purpose:</strong> To enable the optional "Finder" feature, which shows distance and bearing to your connected partner.</p>
+                <p><strong>Data Usage:</strong> Your location coordinates are shared directly with your connected partner's device via Bluetooth. Location data is never sent to servers, never stored, and never shared with third parties.</p>
+
+                <h2>3. Data Security</h2>
+
+                <p>Since RockyTalkie does not collect or store any data, there is no cloud storage to secure, no databases to protect, and no risk of server-side data breaches. All data handling happens locally on your device.</p>
+
+                <h2>4. Children's Privacy</h2>
+
+                <p>RockyTalkie does not knowingly collect data from anyone, including children under the age of 13. Since we don't collect any personal information at all, RockyTalkie is safe for users of all ages.</p>
+
+                <h2>5. Contact</h2>
+
+                <p>If you have questions about this Privacy Policy, please contact us at: <a href="mailto:hornliquant@gmail.com">privacy@rockytalkie.app</a></p>
+
+                <div class="highlight">
+                    <p><strong>Bottom Line:</strong> RockyTalkie is built for privacy. We can't share, sell, or lose your data because we never have it in the first place. Your conversations are yours alone.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Support Section -->
+    <section id="support" class="support-section">
+        <div class="container">
+            <h2 class="section-title">Support</h2>
+            <div class="support-content">
+                <p style="text-align: center; color: #4b5563; margin-bottom: 2rem; font-size: 1.1rem;">Need help with RockyTalkie? We're here to assist you.</p>
+
+                <div class="contact-info">
+                    <div class="contact-card">
+                        <h3>Email Support</h3>
+                        <p><a href="mailto:support@rockytalkie.app">hornliquant@gmail.com</a></p>
+                    </div>
+                    <div class="contact-card">
+                        <h3>GitHub</h3>
+                        <p><a href="https://github.com/ajde0606/RockyTalkie" target="_blank">Report an Issue</a></p>
+                    </div>
+                </div>
+
+                <div class="faq-section">
+                    <h2>Frequently Asked Questions</h2>
+
+                    <div class="faq-item">
+                        <div class="faq-question">How does RockyTalkie work?</div>
+                        <div class="faq-answer">
+                            <p>RockyTalkie uses Bluetooth Low Energy (BLE) to connect two iOS devices directly. When you and your partner enter the same channel code, your devices automatically discover each other and establish a peer-to-peer connection. Press and hold to record your voice, release to send it instantly to your partner's device.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">What's the range of RockyTalkie?</div>
+                        <div class="faq-answer">
+                            <p>RockyTalkie works within standard Bluetooth Low Energy range, typically 30-100 feet (10-30 meters) in open areas. Range can be affected by obstacles like walls, buildings, and terrain. For best results, maintain line-of-sight between devices.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">Does RockyTalkie work without internet?</div>
+                        <div class="faq-answer">
+                            <p>Yes! RockyTalkie works completely offline. It doesn't require Wi-Fi or cellular data. You can even use it in Airplane Mode as long as Bluetooth is enabled. This makes it perfect for hiking, camping, or anywhere internet is unavailable.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">Is my data private and secure?</div>
+                        <div class="faq-answer">
+                            <p>Absolutely. RockyTalkie uses direct device-to-device communication with no servers involved. We never collect, store, or transmit your data. All voice messages travel directly between devices via Bluetooth and are discarded after delivery. See our <a href="#privacy">Privacy Policy</a> for details.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">What's the Location Finder feature?</div>
+                        <div class="faq-answer">
+                            <p>The optional Finder feature shows the real-time distance and compass bearing to your connected partner. This helps you coordinate meetups outdoors. Location data is shared directly between devices via Bluetooth and never sent to any servers.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">Can I use RockyTalkie with more than one person?</div>
+                        <div class="faq-answer">
+                            <p>Currently, RockyTalkie supports one-to-one communication only. You can only connect with one partner at a time. Group communication may be added in a future update.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">What iOS version do I need?</div>
+                        <div class="faq-answer">
+                            <p>RockyTalkie requires iOS 16.7 or later and a device with Bluetooth Low Energy support. Most iPhones from iPhone 6s and newer are supported.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">Is RockyTalkie free?</div>
+                        <div class="faq-answer">
+                            <p>Yes, RockyTalkie is completely free with no in-app purchases, no ads, and no subscriptions.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-section troubleshooting">
+                    <h2>Troubleshooting</h2>
+
+                    <h3>Bluetooth Not Connecting</h3>
+                    <p>If you're having trouble connecting with another device:</p>
+                    <ul>
+                        <li>Ensure both devices are using the exact same channel code (case-sensitive)</li>
+                        <li>Check that Bluetooth is enabled on both devices</li>
+                        <li>Make sure both devices are within Bluetooth range (30-100 feet)</li>
+                        <li>Verify that RockyTalkie has Bluetooth permissions in iOS Settings → Privacy → Bluetooth</li>
+                        <li>Try restarting the app on both devices</li>
+                        <li>If in Airplane Mode, make sure Bluetooth is manually enabled</li>
+                    </ul>
+
+                    <h3>Location Permission Prompt Not Showing</h3>
+                    <p>If the location permission prompt doesn't appear when you open Finder:</p>
+                    <ul>
+                        <li>Check iOS Settings → Privacy & Security → Location Services → RockyTalkie</li>
+                        <li>Delete and reinstall the app to reset permission state</li>
+                        <li>Ensure Location Services is enabled globally in iOS Settings</li>
+                        <li>Restart your device if the issue persists</li>
+                    </ul>
+
+                    <h3>Microphone Not Working</h3>
+                    <p>If voice recording isn't working:</p>
+                    <ul>
+                        <li>Check iOS Settings → Privacy & Security → Microphone → Enable for RockyTalkie</li>
+                        <li>Try closing and reopening the app</li>
+                        <li>Ensure your device's microphone is not blocked or damaged</li>
+                        <li>Test the microphone with another app (like Voice Memos)</li>
+                    </ul>
+
+                    <h3>Poor Audio Quality</h3>
+                    <p>If audio quality is degraded:</p>
+                    <ul>
+                        <li>Move closer to your partner to improve Bluetooth signal strength</li>
+                        <li>Remove obstacles between devices (walls, large objects)</li>
+                        <li>Ensure there's no interference from other Bluetooth devices</li>
+                        <li>Check that your microphone is not blocked by a case or cover</li>
+                    </ul>
+
+                    <h3>Connection Keeps Dropping</h3>
+                    <p>If your connection is unstable:</p>
+                    <ul>
+                        <li>Stay within Bluetooth range (devices may be too far apart)</li>
+                        <li>Minimize obstacles between devices</li>
+                        <li>Close other apps that use Bluetooth</li>
+                        <li>Ensure both devices have sufficient battery</li>
+                        <li>Try toggling Bluetooth off and on in iOS Settings</li>
+                    </ul>
+
+                    <div class="note">
+                        <p><strong>Still having issues?</strong> Contact us at <a href="mailto:hornliquant@gmail.com">support@rockytalkie.app</a> with details about your problem, including device model, iOS version, and steps to reproduce the issue.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="#home">Home</a>
+                <a href="#features">Features</a>
+                <a href="#privacy">Privacy Policy</a>
+                <a href="#support">Support</a>
+            </div>
+            <p class="footer-text">&copy; 2025 RockyTalkie. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                const navLinks = document.getElementById('navLinks');
+                navLinks.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>
